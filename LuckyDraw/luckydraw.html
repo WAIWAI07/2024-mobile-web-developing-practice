@@ -51,6 +51,21 @@
                 return Math.floor(Math.random() * (max - min + 1)) + min;
             }
 
+            function getBouns(degrees) {
+                if (90 > degrees && degrees > 0) {
+                    alert("You got an Apple");
+                }
+                if (180 > degrees && degrees > 90) {
+                    alert("You got a Banana");
+                }
+                if (270 > degrees && degrees > 180) {
+                    alert("You got a Cherry");
+                }
+                if (360 > degrees && degrees > 270) {
+                    alert("You got a Peach");
+                }
+            }
+
             let is_drawing = false;
             let draw_panel = document.querySelector('div')
             let previous_degrees = 0
@@ -73,14 +88,19 @@
                             previous_degrees = parseInt(window.getComputedStyle(draw_panel).getPropertyValue('--current-degrees').replace('deg', ''));
 
                             // Edit the current degrees
-                            current_degrees = previous_degrees + random_degrees;
+                            current_degrees = (previous_degrees + random_degrees) % 360;
                             draw_panel.style.setProperty('--current-degrees', `${current_degrees}deg`);
 
                             // Remove the attribute
                             draw_panel.removeAttribute('draw');
                             is_drawing = false;
+
+                            // Get bonus
+                            getBouns(current_degrees);
+
+                            console.log(current_degrees);
                         },
-                        parseInt(window.getComputedStyle(draw_panel).getPropertyValue('--rotate-duration').replace('s', '')) * 1000
+                        parseInt(window.getComputedStyle(draw_panel).getPropertyValue('--rotate-duration').replace('s', '')) * 1000 - 50
                     );
                 }
             })
