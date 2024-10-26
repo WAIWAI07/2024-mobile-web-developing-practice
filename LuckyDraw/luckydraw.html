@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <div></div>
+        <button>Draw</button>
+        <style>
+            body {
+                --current-degrees: 0deg;
+                --random-degrees: 30deg;
+                --rotate-duration: 1s;
+            }
+
+            div {
+                width: 500px;
+                height: 500px;
+                background-image: conic-gradient(
+                    red 25%,
+                    yellow 25%,
+                    yellow 50%,
+                    green 50%,
+                    green 75%,
+                    blue 75%
+                );
+                border-radius: 250px;
+                transform: rotate(var(--current-degrees));
+            }
+
+            div[draw] {
+                animation: rotate var(--rotate-duration) ease-in-out;
+            }
+
+            @keyframes rotate {
+                from {
+                    transform: rotate(var(--current-degrees));
+                }
+                to {
+                    transform: rotate(calc(var(--current-degrees) + var(--random-degrees)));
+                }
+            }
+        </style>
+
+        <script>
+            function getRandomInt(min, max) {
+                min = Math.ceil(min);
+                max = Math.floor(max);
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+
+            let is_drawing = false;
+            let draw_panel = document.querySelector('div')
+            let previous_degrees = 0
+            let current_degrees = 0
+            let random_degrees = 0
+            document.querySelector('button').addEventListener('click', () => {
+                if (!is_drawing) {
+                    is_drawing = true;
+
+                    // Set the random degrees value
+                    random_degrees = getRandomInt(30, 100);
+                    draw_panel.style.setProperty('--random-degrees', `${random_degrees}deg`);
+
+                    draw_panel.setAttribute('draw', null);
+
+                    // Set timeout
+                    setTimeout(
+                        () => {
+                            // Get the previous degrees
+                            previous_degrees = parseInt(window.getComputedStyle(draw_panel).getPropertyValue('--current-degrees').replace('deg', ''));
+
+                            // Edit the current degrees
+                            current_degrees = previous_degrees + random_degrees;
+                            draw_panel.style.setProperty('--current-degrees', `${current_degrees}deg`);
+
+                            // Remove the attribute
+                            draw_panel.removeAttribute('draw');
+                            is_drawing = false;
+                        },
+                        parseInt(window.getComputedStyle(draw_panel).getPropertyValue('--rotate-duration').replace('s', '')) * 1000
+                    );
+                }
+            })
+        </script>
+    </body>
+</html>
