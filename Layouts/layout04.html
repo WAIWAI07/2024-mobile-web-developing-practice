@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <nav>
+            <div>
+                <h1>
+                    <img src="https://placecats.com/20/20" alt="The cat logo">
+                    App Name
+                </h1>
+            </div>
+            <div>
+                <a href="">Home</a>
+                <a href="">About</a>
+                <a href="">Download</a>
+            </div>
+        </nav>
+
+        <style>
+            body {
+                background-color: #f8f8f8;
+                margin: 0;
+                font-family: Helvetica;
+            }
+
+            nav {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 5px;
+                background-color: white;
+            }
+
+            nav h1 {
+                margin: 0;
+                font-size: 20px;
+                font-weight: 200;
+            }
+
+            nav div {
+                margin-left: 5px;
+                margin-right: 5px;
+            }
+
+            nav div:nth-child(1) h1 {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            nav div:nth-child(2) {
+                display: flex;
+                gap: 20px;
+            }
+
+            nav div:nth-child(2) a {
+                text-decoration: none;
+                color: black;
+                padding: 5px;
+                padding-left: 8px;
+                padding-right: 8px;
+                border-radius: 14px;
+                transition-duration: 300ms;
+            }
+
+            nav div:nth-child(2) a:hover {
+                background-color: rgb(0, 153, 255);
+                color: white;
+            }
+        </style>
+    </body>
+</html>
